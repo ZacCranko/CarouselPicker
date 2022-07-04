@@ -9,7 +9,7 @@ Also, and this is completely unrelated to anything Swift or SwiftUI, I invented 
 - 15mL Angostura bitters. 
 - 60mL gin (I used Tanq London dry, it's just great isn't it)
 
-Shake with ice and double strain into a chilled coup and just like totally slam that shit because it's not gonna taste any better if you leave it to get warm. Any astute mixologists reading this will observe that it is just a gin gimlet with a heap of Ango. And you would be right. But I believe the combination of Ango and lime really gives it a unique lift.
+Shake with ice and double strain into a chilled coup and just like totally slam that shit because it's not gonna taste any better if you leave it to get warm. Any astute mixologists reading this will observe that it is just a gin gimlet with a heap of Ango. And you would be right. But I believe the combination of Ango and lime really gives it a unique lift. If you have a good suggestion of a name of this drink please submit a pull request.
 
 ## Usage
 
