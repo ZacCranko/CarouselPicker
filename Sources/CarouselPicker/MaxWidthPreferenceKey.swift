@@ -24,7 +24,7 @@ struct MaxWidthModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .fixedSize()
+            .fixedSize(horizontal: true, vertical: false)
             .background(GeometryReader { geometry in
                   Color.clear.preference(
                       key: MaxWidthPreferenceKey.self,
