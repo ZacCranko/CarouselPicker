@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CarouselPicker<Value: Hashable, Content: View> : View {
+public struct CarouselPicker<Value: Hashable, Content: View> : View {
     static var defaultSpacing: CGFloat { 8 }
     
     @State private var entityWidth: CGFloat = .zero
@@ -28,7 +28,7 @@ struct CarouselPicker<Value: Hashable, Content: View> : View {
         self.init(selection: selection, data: data, spacing: spacing, content: content)
     }
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { proxy in
             VStack {
                 CarouselPickerLineGraphic()
