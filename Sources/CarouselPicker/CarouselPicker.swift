@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct CarouselPicker<Value: Hashable, Content: View> : View {
-    static var defaultSpacing: CGFloat { 8 }
+    public  static var defaultSpacing: CGFloat { 8 }
     
     @State private var entityWidth: CGFloat = .zero
     @GestureState
@@ -12,7 +12,7 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
     private let content: (Int, Value) -> Content
     @Binding private var selection: Value
     
-    init(selection: Binding<Value>, data: [Value], spacing: CGFloat = Self.defaultSpacing,
+    public init(selection: Binding<Value>, data: [Value], spacing: CGFloat = Self.defaultSpacing,
          content: @escaping (Int, Value) -> Content) {
         self.data = data
         self.spacing = spacing
@@ -20,7 +20,7 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
         self._selection = selection
     }
     
-    init(selection: Binding<Value>, data: [Value], spacing: CGFloat = Self.defaultSpacing,
+    public init(selection: Binding<Value>, data: [Value], spacing: CGFloat = Self.defaultSpacing,
          content: @escaping (Value) -> Content) {
         let content = { (offset: Int, value: Value) -> Content in
             content(value)
