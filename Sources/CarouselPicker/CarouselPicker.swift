@@ -2,26 +2,26 @@ import SwiftUI
 
 public struct CarouselPicker<Value: Hashable, Content: View> : View {
     public static var defaultSpacing: CGFloat { 8 }
-    public static var defaultOpacity: CGFloat { 0.5 }
+    public static var defaultSize: CGFloat { 10 }
     
     @State private var entityWidth: CGFloat = .zero
     @GestureState
     private var dragState: (initial: CGFloat?, offset: CGFloat, active: Bool) = (nil, .zero, false)
     
     private let spacing: CGFloat
-    private let markOpacity: CGFloat
     private let data: [Value]
+    private let markSize: CGFloat
     private let content: (Int, Value) -> Content
     @Binding private var selection: Value
     
     public init(selection: Binding<Value>,
                 data: [Value],
                 spacing: CGFloat = Self.defaultSpacing,
-                markOpacity: CGFloat = Self.defaultOpacity,
+                markSize: CGFloat = Self.defaultSize,
                 content: @escaping (Int, Value) -> Content) {
         self.data = data
-        self.markOpacity = markOpacity
         self.spacing = spacing
+        self.markSize = markSize
         self.content = content
         self._selection = selection
     }
@@ -29,12 +29,12 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
     public init(selection: Binding<Value>,
                 data: [Value],
                 spacing: CGFloat = Self.defaultSpacing,
-                markOpacity: CGFloat = Self.defaultOpacity,
+                markSize: CGFloat = Self.defaultSize,
                 content: @escaping (Value) -> Content) {
         let content = { (offset: Int, value: Value) -> Content in
             content(value)
         }
-        self.init(selection: selection, data: data, spacing: spacing, markOpacity: markOpacity, content: content)
+        self.init(selection: selection, data: data, spacing: spacing, markSize: markSize, content: content)
     }
     
     public var body: some View {
@@ -42,8 +42,6 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
             VStack {
                 CarouselPickerLineGraphic()
                     .frame(width: proxy.size.width, height: 10)
-                    .foregroundColor(Color(.separator.withAlphaComponent(1)))
-                    .opacity(markOpacity)
                 carouselView()
                     .frame(width: proxy.size.width)
                     .mask(gradientMask)
@@ -78,11 +76,6 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
     @ViewBuilder
     private func pickerItemView(index: Int, tag: Value) -> some View {
         content(index, tag)
-            .onTapGesture {
-                withAnimation {
-                    selection = tag
-                }
-            }
             .modifier(MaxWidthModifier(width: $entityWidth))
     }
 }
@@ -151,6 +144,7 @@ struct CarouselPickerPreview: View {
                 CarouselPicker(selection: $selection.animation(.easeInOut),
                                data: data, spacing: 10, content: pickerItem)
             }
+            Divider()
             CarouselPicker(selection: $selection,  data: data, content: pickerItem)
             CarouselPicker(selection: $selection2, data: data, content: pickerItem)
                 .border(Color.red)
