@@ -66,11 +66,11 @@ public struct CarouselPicker<Value: Hashable, Content: View> : View {
             ForEach(Array(data.enumerated()), id: \.offset, content: pickerItemView)
         }
         .offset(x: carouselOffset)
-        .gesture(drag)
         .onPreferenceChange(MaxWidthPreferenceKey.self) { width in
             entityWidth = max(entityWidth, width)
         }
         .animation(.easeInOut, value: dragState.active)
+        .highPriorityGesture(drag)
     }
     
     @ViewBuilder
@@ -164,12 +164,14 @@ struct CarouselPickerPreview: View {
     
     @ViewBuilder
     private func pickerItem(value: Int) -> some View {
-        Text(value.formatted())
-            .padding(3)
-            .background(
-                Circle().fill(Color(.separator))
-                    .frame(width: 20, height: 20)
-            )
+        Button(value.formatted()) {
+            withAnimation {
+                selection = value
+            }
+        }
+        .buttonStyle(.bordered)
+        .clipShape(Circle())
+        .tint(selection == value ? .accentColor : nil)
     }
 }
 //#endif
